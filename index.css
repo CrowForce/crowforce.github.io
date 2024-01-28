@@ -56,6 +56,10 @@
     src: url(assets/fonts/Kelson.otf);
 }
 
+*{
+    box-sizing: border-box;
+}
+
 .header{
     margin-top: 10px;
     background: linear-gradient(45deg, #ec6550, transparent) #b9321d;
@@ -102,12 +106,21 @@
     background-color: var(--secondarycolor);
 }
 
+.Left{
+    float: left;
+    width: 62.66%;
+}
+
+.Right{
+    float:left;
+    width: 33.33%;
+}
+
 .block{
     background-color: var(--nord2);
     padding: 20px;
     margin-top: 20px;
     margin-right: 20px;
-    float: left;
 
     box-sizing: border-box;
     border: 2px solid var(--nord3);
@@ -157,17 +170,21 @@
     margin-bottom: 5px;
 }
 
-.block.left{
-    width: 62.66%;
+.row::after{
+    content: "";
+    display: table;
+    clear: both;
 }
 
-.block.right{
-    width: 33.33%;
+@media screen and (max-width: 600px) {
+    .Left, .Right{
+      width: 100%;
+    }
 }
 
 .footer{
     padding: 20px;
-    background-color: var(--nord10);
+    background-color: var(--secondarycolor);
 
     text-align: center;
     font-family: SometypeMono;
@@ -175,7 +192,7 @@
 
     margin-top: 10px;
     box-sizing: border-box;
-    border: 2px solid var(--nord8);
+    border: 2px solid var(--accentcolor);
     border-radius: 10px;
 }
 
