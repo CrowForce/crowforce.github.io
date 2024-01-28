@@ -1,0 +1,198 @@
+:root {
+    --nord0: #2f3541;
+    --nord1: #3B4252;
+    --nord2: #434C5E;
+    --nord3: #4C566A;
+
+    --nord4: #D8DEE9;
+    --nord5: #E5E9F0;
+    --nord6: #ECEFF4;
+
+    --nord7: #8FBCBB;
+    --nord8: #88C0D0;
+    --nord9: #81A1C1;
+    --nord10: #5E81AC;
+
+    --nord11: #BF616A;
+    --nord12: #D08770;
+    --nord13: #EBCB8B;
+    --nord14: #A3BE8C;
+    --nord15: #B48EAD;
+
+    --accentcolor: #e73f24;
+    --secondarycolor: #8b2616;
+    --tertiarycolor: #e9523a;
+    --pureblack: #000000;
+
+}
+
+@font-face {
+    font-family: SometypeMono;
+    src: url(assets/fonts/SometypeMono-Regular.woff);
+}
+
+@font-face {
+    font-family: SometypeMonoBold;
+    src: url(assets/fonts/SometypeMono-Bold.woff);
+}
+
+@font-face {
+    font-family: SometypeMonoItalic;
+    src: url(assets/fonts/SometypeMono-RegularItalic.woff);
+}
+
+@font-face {
+    font-family: SometypeMonoBoldItalic;
+    src: url(assets/fonts/SometypeMono-BoldItalic.woff);
+}
+
+@font-face {
+    font-family: ChesnaGrotesk;
+    src: url(assets/fonts/ChesnaGrotesk-Medium.otf);
+}
+
+@font-face {
+    font-family: Kelson;
+    src: url(assets/fonts/Kelson.otf);
+}
+
+.header{
+    margin-top: 10px;
+    background: linear-gradient(45deg, #ec6550, transparent) #b9321d;
+    color: var(--nord4);
+    border-radius: 5px;
+
+    font-family: ChesnaGrotesk;
+    text-align: center;
+    padding: 30px;
+}
+
+.header h1{
+    font-family: ChesnaGrotesk;
+    font-size: 50px;
+
+    color:var(--nord6);
+}
+
+.nav{
+    overflow: hidden;
+    font-family: Kelson;
+    border-radius: 5px;
+
+    background-color: var(--accentcolor);
+}
+
+.nav a{
+    display: block;
+    float: left;
+    padding: 14px 16px;
+    transition: background-color .5s;
+
+    color: var(--nord6);
+
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav a:hover:not(#currentpage){
+    background-color: var(--pureblack);
+}
+
+#currentpage{
+    background-color: var(--secondarycolor);
+}
+
+.block{
+    background-color: var(--nord2);
+    padding: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    float: left;
+
+    box-sizing: border-box;
+    border: 2px solid var(--nord3);
+    border-radius: 10px;
+}
+
+.block h1 {
+    color: var(--nord4);
+    font-family: SometypeMono;
+
+    margin-top: 5px;
+    display: inline-block;
+    margin-right: auto;
+
+    border-bottom: solid var(--accentcolor);
+}
+
+.block h2 {
+    color: var(--nord5);
+    font-family: ChesnaGrotesk;
+    font-size: 20pt;
+
+    margin-top: 0;
+}
+
+.block h3{
+    color: var(--nord6);
+    font-family: ChesnaGrotesk;
+    font-size: 18pt;
+
+    margin-top: 0;
+}
+
+.block ul, .block ol{
+    color: var(--nord6);
+    font-family: ChesnaGrotesk;
+    font-size: 20pt;
+    line-height: 2;
+}
+
+.block a{
+    text-decoration: underline;
+    color: var(--nord15);
+}
+
+.block p{
+    margin-bottom: 5px;
+}
+
+.block.left{
+    width: 62.66%;
+}
+
+.block.right{
+    width: 33.33%;
+}
+
+.footer{
+    padding: 20px;
+    background-color: var(--nord10);
+
+    text-align: center;
+    font-family: SometypeMono;
+    color: var(--nord4);
+
+    margin-top: 10px;
+    box-sizing: border-box;
+    border: 2px solid var(--nord8);
+    border-radius: 10px;
+}
+
+.footer a{
+    color: var(--nord6);
+    font-family: SometypeMonoItalic;
+}
+
+body{
+    background-color: var(--nord0);
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+    color:var(--nord6);
+
+    font-family: ChesnaGrotesk;
+    font-size: 12pt;
+}
