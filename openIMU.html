@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="openIMU.css">
+        <link rel="stylesheet" href="assets/prism/prism.css" />
+        <script src="assets/prism/prism.js"></script>
+
+    </head>
+    
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="software.html">Software</a>
+        <a id="currentpage" href="#">OpenIMU</a>
+        <a href="https://crowforce10809.wixsite.com/ftc-robotics">Business Website</a>
+    </div>
+
+    <div class="header">
+        <h1>
+            OpenIMU
+        </h1>
+    </div>
+
+    <div class="block">
+        <h1>Background</h1>
+        <h2>The Problem</h2>
+        <h3>You spin me right round baby right round-</h3>
+        <p>Over our first three competitions, we sacrificed points as a result of IMU resets. We learned that these resets were a result of static discharge (also known as ESD), which reset the percieved orientation of our robot.</p>
+        <hr>
+        <h2>Solution</h2>
+        <p></p>
+    </div>
+
+    <div class="block">
+        <h1>Hardware</h1>
+        <h3>haha wiring go brrr</h3>
+        <p>How this website is built</p>
+    </div>
+
+    <div class="block">
+        <h1>Software</h1>
+        <h2>Subheader</h2>
+        <h3>beep boop</h3>
+        <p>Woah code</p>
+
+        <pre><code class="language-java">
+            package org.firstinspires.ftc.teamcode.tests;
+
+            import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+            import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+            import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+            import com.qualcomm.robotcore.hardware.IMU;
+            
+            import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+            import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+            import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+            
+            
+            @TeleOp(name = "External IMU Test", group = "Teleop")
+            
+            public class ExternalIMU extends LinearOpMode {
+                public IMU imu;
+                public void runOpMode() throws InterruptedException {
+            
+                    //Set up IMU
+                    imu = hardwareMap.get(IMU.class, "imu");
+                    IMU.Parameters myIMUparameters1;
+            
+                    //Parameters for IMU
+                    myIMUparameters1 = new IMU.Parameters(
+                            new RevHubOrientationOnRobot(
+                                    RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                                    RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
+                            )
+                    );
+            
+                    imu.initialize(myIMUparameters1);
+            
+                    //Resets Values
+                    imu.resetYaw();
+            
+                    waitForStart();
+                    while (opModeIsActive()) {
+                        telemetry.addData("IMU Value", getAngle());
+                        telemetry.update();
+                    }
+                }
+                public double getAngle() {
+                        return (imu.getRobotOrientation(AxesReference.EXTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+                }
+            }
+        </code></pre>
+        
+    </div>
+
+    <div class="footer">
+       <a href="https://github.com/CrowForce">Github</a> | <a href="https://crowforce10809.wixsite.com/ftc-robotics">Secondary Website</a>
+    </div>
+</html>
