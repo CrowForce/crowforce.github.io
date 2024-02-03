@@ -19,11 +19,11 @@
     --nord14: #A3BE8C;
     --nord15: #B48EAD;
 
+    --darknord2: #1b1e26;
     --accentcolor: #e73f24;
     --secondarycolor: #8b2616;
     --tertiarycolor: #e9523a;
     --pureblack: #000000;
-    --darknord2: #1b1e26;
 
 }
 
@@ -63,8 +63,7 @@
 
 .header{
     margin-top: 10px;
-    
-    background: linear-gradient(120deg, rgba(231,63,36,1) 0%, rgba(139,38,22,1) 50%, rgba(191,97,106,1) 100%);;
+    background: linear-gradient(30deg, rgba(27,30,38,1) 0%, rgba(231,63,36,1) 50%, rgba(191,97,106,1) 100%);
     color: var(--nord4);
     border-radius: 5px;
 
@@ -126,6 +125,7 @@
     border: 2px solid var(--nord3);
     border-radius: 10px;
 }
+
 
 .block h1 {
     color: var(--nord4);
@@ -194,7 +194,6 @@
     position: absolute;
     align-self: center;
     left: 2.5%;
-    bottom: 0;
     font-family: SometypeMono;
     color: var(--nord4);
 
@@ -212,7 +211,6 @@
 
 html{
     background-color: var(--pureblack);
-    height: 100%;
 
     font-family: Arial, Helvetica, sans-serif;
 }
