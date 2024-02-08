@@ -12,7 +12,7 @@
         <a href="hardware.html">Hardware</a>
         <a href="software.html">Software</a>
         <a id="currentpage" href="#">OpenIMU</a>
-        <a href="https://crowforce10809.wixsite.com/ftc-robotics">Business Website</a>
+        <a href="https://crowforce10809.wixsite.com/ftc-robotics" target="_blank">Business Website</a>
     </div>
 
     <div class="header">
@@ -24,11 +24,10 @@
     <div class="block">
         <h1>Background</h1>
         <h2>The Problem</h2>
-        <h3>You spin me right round baby right round-</h3>
-        <p>Over our first three competitions, we sacrificed points as a result of IMU resets. We learned that these resets were a result of static discharge (also known as ESD), which reset the percieved orientation of our robot.</p>
+        <p>Over our first three competitions, we sacrificed points as a result of IMU resets. We learned that these resets were a result of static discharge (also known as ESD), which reset the percieved orientation of our robot, causing autonomous trajectory sequences to fail, as well as field centric driving. Our research shows us that this problem is new this year due to a faulty chip in the 2023-24 REV robotics control hub.</p>
         <hr>
         <h2>Solution</h2>
-        <p></p>
+        <p>A simple solution would be to use last years control hub, but if you are a new team who doesnt have one, or do not want to spend the money and time to get one, below is a step by step way to set up an external imu using last years control hub IMU chip! </p>
     </div>
 
     <div class="block">
@@ -39,9 +38,10 @@
 
     <div class="block">
         <h1>Software</h1>
-        <h2>Subheader</h2>
-        <h3>beep boop</h3>
-        <p>Woah code</p>
+        <h3>Driver Station</h3>
+        <p>Blah blah imu, blah blah ic port, also add images of driver hub!</p>
+        <h3>Code:</h3>
+        <p>The code below shows how to setup your new IMU. Make the name of your imu matches the name in IC Bus 2 slot on your drive hub. Another thing to note is the Orientation we have given about our IMU. This changes depending on how you have your external IMU positioned.</p>
 
         <pre><code class="language-java">
             package org.firstinspires.ftc.teamcode.tests;
@@ -94,6 +94,6 @@
     </div>
 
     <div class="footer">
-       <a href="https://github.com/CrowForce">Github</a> | <a href="https://crowforce10809.wixsite.com/ftc-robotics">Secondary Website</a>
-    </div>
+        <a href="https://github.com/CrowForce" target="_blank">Github</a> | <a href="https://crowforce10809.wixsite.com/ftc-robotics" target="_blank">Buisness Website</a>
+     </div>
 </html>
