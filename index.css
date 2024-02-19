@@ -61,21 +61,36 @@
     box-sizing: border-box;
 }
 
+
+html{
+    background-color: var(--pureblack);
+    height: 100%;
+    font-size: 100%;
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.openimu{
+    .header{
+        background: linear-gradient(30deg, rgba(27,30,38,1) 0%, rgba(231,63,36,1) 50%, rgba(191,97,106,1) 100%);
+    }
+}
+
 .header{
-    margin-top: 10px;
+    margin-top: 0.625rem;
     
     background: linear-gradient(120deg, rgba(231,63,36,1) 0%, rgba(139,38,22,1) 50%, rgba(191,97,106,1) 100%);;
     color: var(--nord4);
-    border-radius: 5px;
+    border-radius: 0.3125rem;
 
     font-family: ChesnaGrotesk;
     text-align: center;
-    padding: 30px;
+    padding: 1.875rem;
 }
 
 .header h1{
     font-family: ChesnaGrotesk;
-    font-size: 50px;
+    font-size: 3.125rem;
 
     color:var(--nord6);
 }
@@ -83,7 +98,7 @@
 .nav{
     overflow: hidden;
     font-family: ChesnaGrotesk;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
 
     background-color: var(--accentcolor);
 }
@@ -91,7 +106,7 @@
 .nav a{
     display: block;
     float: left;
-    padding: 14px 16px;
+    padding: 0.875rem 1rem;
     transition: background-color .5s;
 
     color: var(--nord6);
@@ -118,20 +133,20 @@
 
 .block{
     background-color: var(--darknord2);
-    padding: 20px;
-    margin-top: 20px;
-    margin-right: 20px;
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-right: 1.25rem;
 
     box-sizing: border-box;
-    border: 2px solid var(--nord3);
-    border-radius: 10px;
+    border: 0.125rem solid var(--nord3);
+    border-radius: 0.625rem;
 }
 
 .block h1 {
     color: var(--nord4);
     font-family: SometypeMono;
 
-    margin-top: 5px;
+    margin-top: 0.3125rem;
     display: inline-block;
     margin-right: auto;
 
@@ -141,15 +156,15 @@
 .block h2 {
     color: var(--nord5);
     font-family: ChesnaGrotesk;
-    font-size: 20pt;
+    font-size: 1.5rem;
 
     margin-top: 0;
 }
 
 .block h3{
-    color: #e9523a;
+    color: var(--tertiarycolor);
     font-family: ChesnaGrotesk;
-    font-size: 18pt;
+    font-size: 1.25rem;
 
     margin-top: 0;
 }
@@ -157,8 +172,8 @@
 .block ul, .block ol{
     color: var(--nord6);
     font-family: ChesnaGrotesk;
-    font-size: 20pt;
-    line-height: 2;
+    font-size: 1.125rem;
+    line-height: 2rem;
 }
 
 .block a{
@@ -166,8 +181,16 @@
     color: var(--tertiarycolor);
 }
 
+.block img{
+    border: .3rem solid var(--tertiarycolor);
+    border-radius: .5rem;
+    width: 60%;
+    margin-top: 3rem;
+}
+
 .block p{
-    margin-bottom: 5px;
+    margin-bottom: 0.3125rem;
+    font-size: 1rem;
 }
 
 .row{
@@ -187,7 +210,7 @@
 }
 
 .footer{
-    padding: 20px;
+    padding: 1.25rem;
     background-color: var(--secondarycolor);
 
     text-align: center;
@@ -198,10 +221,10 @@
     color: var(--nord4);
 
     width: 95%;
-    margin-top: 10px;
+    margin-top: 0.625rem;
     box-sizing: border-box;
-    border: 2px solid var(--accentcolor);
-    border-radius: 10px;
+    border: 0.125rem solid var(--accentcolor);
+    border-radius: 0.625rem;
 }
 
 .footer a{
@@ -209,25 +232,18 @@
     font-family: SometypeMonoItalic;
 }
 
-html{
-    background-color: var(--pureblack);
-    height: 100%;
-
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 hr{
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
     margin-right: 25vw;
 
-    border: 2px solid var(--nord2);
-    border-radius: 3px;
+    border: 0.125rem solid var(--nord2);
+    border-radius: 0.1875rem;
 }
 
 p {
     color:var(--nord6);
 
     font-family: ChesnaGrotesk;
-    font-size: 12pt;
+    font-size: 0.75rem;
 }
