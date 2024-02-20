@@ -96,6 +96,7 @@ html{
 .header h1{
     font-family: ChesnaGrotesk;
     font-size: 3.125rem;
+    font-synthesis: none;
 
     color:var(--nord6);
 }
@@ -149,7 +150,8 @@ html{
 
 .block h1 {
     color: var(--nord4);
-    font-family: SometypeMono;
+    font-family: SometypeMonoBold;
+    font-synthesis: none;
 
     margin-top: 0.3125rem;
     display: inline-block;
@@ -162,6 +164,7 @@ html{
     color: var(--nord5);
     font-family: ChesnaGrotesk;
     font-size: 1.5rem;
+    font-synthesis: none;
 
     margin-top: 0;
 }
@@ -170,6 +173,7 @@ html{
     color: var(--tertiarycolor);
     font-family: ChesnaGrotesk;
     font-size: 1.25rem;
+    font-synthesis: none;
 
     margin-top: 0;
 }
