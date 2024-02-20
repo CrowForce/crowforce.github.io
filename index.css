@@ -30,31 +30,36 @@
 @font-face {
     font-family: SometypeMono;
     src: url(assets/fonts/SometypeMono-Regular.woff);
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
     font-family: SometypeMonoBold;
     src: url(assets/fonts/SometypeMono-Bold.woff);
+    font-weight: bold;
+    font-style: normal;
 }
 
 @font-face {
     font-family: SometypeMonoItalic;
     src: url(assets/fonts/SometypeMono-RegularItalic.woff);
+    font-weight: normal;
+    font-style: italic;
 }
 
 @font-face {
     font-family: SometypeMonoBoldItalic;
     src: url(assets/fonts/SometypeMono-BoldItalic.woff);
+    font-weight: bold;
+    font-style: italic;
 }
 
 @font-face {
     font-family: ChesnaGrotesk;
     src: url(assets/fonts/ChesnaGrotesk-Medium.otf);
-}
-
-@font-face {
-    font-family: Kelson;
-    src: url(assets/fonts/Kelson.otf);
+    font-weight: normal;
+    font-style: normal;
 }
 
 *{
