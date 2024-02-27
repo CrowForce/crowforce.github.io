@@ -28,9 +28,9 @@
         </div>
 
         <div class="block">
-            <h1>Background</h1>
+            <h1 id="background">Background</h1>
 
-            <h2>The Problem</h2>
+            <h2 id="background-problem">The Problem</h2>
             <p>Over our first three competitions, team 10809 CrowForce sacrificed points during autonomous and tele-op when our robot became disoriented, causing failures in autonomous trajectory sequences and field-centric driver control. These failures seemed to coincide with collisions between exposed metal on our robot and other metalic objects on the field such as the 2023-'24 CENTERSTAGE™ game's truss supports and other robots.</p>
 
             <p>By finding a way to reproduce failures with truss contact and then printing Inertial Measurement Unit (IMU) orientation telemetry to the driver hub, we observed our gyroscope and accelerometer readings drop to all zeros after metal contact that would persist until repowering the robot. We learned that these IMU flatlines resulted from electrostatic discharge (also known as ESD); See <a href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/managing_esd/managing-esd.html">FIRST's article “Managing Electrostatic Discharge Effects”</a> to learn more. Our investigation lead us to suspect that the hardware changes to <a href="https://www.revrobotics.com/rev-31-1595/">REV Robotics' REV-31-1595 Control Hubs</a> made after December 1st 2021 left those newer control hubs more succeptible to ESD events (this change coincided with the <a href="https://www.revrobotics.com/blog/expansion-hub-IMU-updates">removal of IMUs from new expansion hubs</a>). We tested this hypothesis by switching our robot's control hub with an older model and observing a reduction in IMU resets. Unfortunately, older generation control hubs are a luxury of established teams and they won't survive the playfield forever.</p>
@@ -38,14 +38,14 @@
             <p><strong>Note:</strong> To determine which type of IMU your control hub contains without knowing its manufacture date, see the control hub's web interface as explained by <a href="https://docs.revrobotics.com/duo-control/sensors/i2c/imu#how-to-use">REV's IMU documentation</a>.</p>
 
             <hr>
-            <h2>Our Solution</h2>
+            <h2 id="background-solution">Our Solution</h2>
             <p>Once your team has applied FIRST's suggestions for mitigating static, such as adding a resistive grounding strap and shielding exposed metal surfaces with electrically insulating material, your new control hub's IMU may <em>still</em> reset when shocked.</p>
 
             <p>Fortunately, external IMU sensor boards using the same chip as original control hubs can still be purchased! Read on for a simple guide to buying, assembling, attaching, and configuring a replacement IMU in a 3D-printed enclosure designed by team 10809 CrowForce and the mentors of Sage Creek High School.</p>
         </div>
 
         <div class="block">
-            <h1>Hardware</h1>
+            <h1 id="hardware">Hardware</h1>
 
             <h2>Some Assembly Required</h2>
             <p>To build the OpenIMU, you will need some base knowledge on/with:</p>
@@ -61,13 +61,13 @@
         </div>
 
         <div class="block">
-            <h1>Software</h1>
+            <h1 id="software">Software</h1>
 
-            <h2>Driver Station</h2>
+            <h2 id="software-driver-station">Driver Station</h2>
             <p>It is very easy to get your external IMU to talk to your robot controller. Below are instructions on how to configure the external IMU using your connected driver station.</p>
             <hr>
 
-            <h3>Disable Internal IMU</h3>
+            <h3 id="software-driver-station-disable-internal-imu">Disable Internal IMU</h3>
             <p>First, disable the built-in internal IMUs from your control hub using a connected driver station:</p>
             <ol>
                 <li>
@@ -96,13 +96,13 @@
                 <li>
                     <p>Look for any entries of “REV Control Hub IMU” and disable them by selecting “Nothing”.</p>
 
-                    <p><strong>Note:</strong> <em>Do not</em> add your external IMU on this I2C bus, since the unified <code>IMU</code> interface code for reading measurements will ignore your configuration and try to talk to the original internal IMU instead. See the next section for adding your external IMU to a different I2C bus.</p>
+                    <p><strong>Note:</strong> <em>Do not</em> add your external IMU on this I2C bus, since the unified <code>IMU</code> interface code for reading measurements will ignore your configuration and try to talk to the original internal IMU instead. See <a href="#software-driver-station-add-external-imu">the next section</a> for adding your external IMU to a different I2C bus.</p>
 
                     <img class="DriverHubScreen" src="assets/images/DriverStation5.png" alt="The Driver Station's “Robot Configuration” screen after selecting “I2C Bus 0” within “Control Hub”. In the two-column table of port numbers and associated attached I2C devices, port zero has been assigned the device type “Nothing”.">
                 </li>
             </ol>
 
-            <h3>Add External IMU</h3>
+            <h3 id="software-driver-station-add-external-imu">Add External IMU</h3>
             <p>Second, add the new external IMU to a control or expansion hub:</p>
             <ol>
                 <li>
@@ -111,14 +111,14 @@
                     <img class="DriverHubScreen" src="assets/images/DriverStation6.png" alt="The Driver Station's “Robot Configuration” screen after returning to the previous “Control Hub” screen and selecting “I2C Bus 1” instead. Port zero has been assigned the device type “Adafruit IMU”.">
                 </li>
                 <li>
-                    <p>Name your external Adafruit IMU sensor to match how your code gets a reference to it (such as using <code class="language-java">hardwareMap.get</code> in Java). In the next section's code sample, we will use the name “<kbd>imu</kbd>”.</p>
+                    <p>Name your external Adafruit IMU sensor to match how your code gets a reference to it (such as using <code class="language-java">hardwareMap.get</code> in Java). In the <a href="#software-sample-code">next section's code sample</a>, we will use the name “<kbd>imu</kbd>”.</p>
 
                     <img class="DriverHubScreen" src="assets/images/DriverStation7.png" alt="The Driver Station's “Robot Configuration” screen after renaming the “Adafruit IMU” device on port zero of “I2C Bus 1” to “imu”.">
                 </li>
             </ol>
 
             <hr>
-            <h2>Code</h2>
+            <h2 id="software-sample-code">Sample Code</h2>
             <p>The code below shows how to setup your new IMU. Make the name of your imu matches the name in IC Bus 2 slot on your drive hub. Another thing to note is the Orientation we have given about our IMU. This changes depending on how you have your external IMU positioned.</p>
 
             <pre><code class="language-java">package org.firstinspires.ftc.teamcode;
