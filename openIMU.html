@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
-    <div class="openimu">
-        <head>
-            <link rel="stylesheet" href="index.css">
-            <link rel="stylesheet" href="assets/prism/prism.css" />
-            <script src="assets/prism/prism.js"></script>
+<html lang="en">
+    <head>
+        <title>OpenIMU - CrowForce</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="assets/prism/prism.css">
+        <script src="assets/prism/prism.js"></script>
+    </head>
 
-        </head>
-        
+    <div class="openimu">
         <div class="nav">
             <a href="index.html">Home</a>
             <a href="hardware.html">Hardware</a>
@@ -24,8 +24,10 @@
 
         <div class="block">
             <h1>Background</h1>
+
             <h2>The Problem</h2>
             <p>Over our first three competitions, we sacrificed points as a result of IMU resets. We learned that these resets were a result of static discharge (also known as ESD), which reset the percieved orientation of our robot, causing autonomous trajectory sequences to fail, as well as field centric driving. Our research shows us that this problem is new this year due to a faulty chip in the 2023-24 REV robotics control hub.</p>
+
             <hr>
             <h2>Solution</h2>
             <p>A simple solution would be to use last years control hub, but if you are a new team who doesnt have one, or do not want to spend the money and time to get one, below is a step by step way to set up an external imu using last years control hub IMU chip! </p>
@@ -33,15 +35,15 @@
 
         <div class="block">
             <h1>Hardware</h1>
+
             <h3>Some Assembly Required</h3>
-            <p>
-                To build the OpenIMU, you will need some base knowledge on/with:
-                <ul>
-                    <li>Soldering</li>
-                    <li>General Hardware Assembly</li>
-                    <li>3D Printing and Post-Processing Prints</li>
-                </ul>
-            </p>
+            <p>To build the OpenIMU, you will need some base knowledge on/with:</p>
+            <ul>
+                <li>Soldering</li>
+                <li>General Hardware Assembly</li>
+                <li>3D Printing and Post-Processing Prints</li>
+            </ul>
+
             <hr>
             <h3>Assembly Instructions:</h3>
             <p>WIP, coming soon :)</p>
@@ -49,37 +51,37 @@
 
         <div class="block">
             <h1>Software</h1>
+
             <h3>Driver Station</h3>
             <p>It is very easy to get your external IMU to talk to your driver station, below are instructions on how to add the external IMU to your driver station.</p>
             <hr>
 
-            <img src="assets/images/DriverStation1.png">
+            <img src="assets/images/DriverStation1.png" alt="The Driver Station's “Active Configuration” screen listing two available configurations for editing: “2023_2024” and “camera”.">
             <p>1. Go to the configure robot section under the three dots in the top right.</p>
 
-            <img src="assets/images/DriverStation2.png">
+            <img src="assets/images/DriverStation2.png" alt="The Driver Station's “Active Configuration” screen after opening the “2023_2024” configuration for editing. Two USB devices are listed for this configuration: “Webcam 1” and “Control Hub Portal”.">
             <p>2. Go into the control hub portal.</p>
 
-            <img src="assets/images/DriverStation3.png">
+            <img src="assets/images/DriverStation3.png" alt="The Driver Station's “Active Configuration” screen after selecting the USB device named “Control Hub Portal”. Two contained devices are listed: “Expansion Hub 2” and “Control Hub”.">
             <p>3. Click on control hub.</p>
 
-            <img src="assets/images/DriverStation4.png">
+            <img src="assets/images/DriverStation4.png" alt="The Driver Station's “Active Configuration” screen after selecting the “Control Hub” entry within “Control Hub Portal”. The first five visible categories of connected peripherals are “Analog Input Devices”, “I2C Bus 0”, “I2C Bus 1”, “I2C Bus 2”, and “I2C Bus 3”.">
             <p>4. Scroll down to I2C Bus 0.</p>
 
-            <img src="assets/images/DriverStation5.png">
+            <img src="assets/images/DriverStation5.png" alt="The Driver Station's “Active Configuration” screen after selecting “I2C Bus 0” within “Control Hub”. In the two-column table of port numbers and associated attached I2C devices, port zero has been assigned the device type “Nothing”.">
             <p>5. Change this port to "nothing". If you try to add your external IMU here, the control hub will try to fight for what it deems the real "imu" which never works.</p>
 
-            <img src="assets/images/DriverStation6.png">
+            <img src="assets/images/DriverStation6.png" alt="The Driver Station's “Active Configuration” screen after returning to the previous “Control Hub” screen and selecting “I2C Bus 1” instead. Port zero has been assigned the device type “Adafruit IMU”.">
             <p>6. Now go to I2C port 1 and add an "adafruit IMU".</p>
 
-            <img src="assets/images/DriverStation7.png">
+            <img src="assets/images/DriverStation7.png" alt="The Driver Station's “Active Configuration” screen after renaming the “Adafruit IMU” device on port zero of “I2C Bus 1” to “imu”.">
             <p>7. The name of the adafruit should be the name of your IMU in code (shown below).</p>
             
             <hr>
-
             <h3>Code:</h3>
             <p>The code below shows how to setup your new IMU. Make the name of your imu matches the name in IC Bus 2 slot on your drive hub. Another thing to note is the Orientation we have given about our IMU. This changes depending on how you have your external IMU positioned.</p>
 
-            <pre><code class="language-java"><![CDATA[
+            <pre><code class="language-java">
 package org.firstinspires.ftc.teamcode.tests;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -126,7 +128,7 @@ public class ExternalIMU extends LinearOpMode {
             AngleUnit.DEGREES).firstAngle;
     }
 }
-            ]]></code></pre>
+</code></pre>
         </div>
 
 
