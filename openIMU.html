@@ -31,28 +31,81 @@
             <h1 id="background">Background</h1>
 
             <h2 id="background-problem">The Problem</h2>
-            <p>Over our first three competitions, team 10809 Crow Force sacrificed points during autonomous and tele-op when our robot became disoriented, causing failures in autonomous trajectory sequences and field-centric driver control. These failures seemed to coincide with collisions between exposed metal on our robot and other conductive objects on the field such as the 2023-'24 CENTERSTAGE™ game's truss supports and other robots.</p>
+            <p>Over our first three competitions, team 10809 Crow Force sacrificed points during
+            autonomous and tele-op when our robot became disoriented, causing failures in autonomous
+            trajectory sequences and field-centric driver control. These failures seemed to coincide
+            with collisions between exposed metal on our robot and other conductive objects on the
+            field such as the 2023-'24 CENTERSTAGE™ game's truss supports and other robots.</p>
 
-            <p>By finding a way to reproduce failures with truss contact and then printing Inertial Measurement Unit (IMU) orientation telemetry to the driver hub, we observed our gyroscope and accelerometer readings drop to all zeros after metal contact that would persist until repowering the robot. After reading <a href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/managing_esd/managing-esd.html">FIRST's article “Managing Electrostatic Discharge Effects”</a>, we learned that these IMU flatlines could result from ESD: electrostatic discharge. The <a href="https://firsttechchallenge.blogspot.com/2023/11/unexpected-imu-reset.html">FIRST Tech Challenge Blog's 2023-11-21 post “Unexpected IMU Reset”</a> lead us to suspect REV Robotics' <a href="https://firsttechchallenge.blogspot.com/2022/11/first-tech-challenge-sdk-81-has-been.html">2022-09-23 IMU hardware changes</a> made to <a href="https://www.revrobotics.com/rev-31-1595/">REV-31-1595 Control Hubs</a>. We tested this hypothesis by switching our robot's control hub with an older model and observing a reduction in IMU resets. Unfortunately, older generation control hubs are a luxury of established teams and they won't survive the playfield forever.</p>
+            <p>By finding a way to reproduce failures with truss contact and then printing Inertial
+            Measurement Unit (IMU) orientation telemetry to the driver hub, we observed our
+            gyroscope and accelerometer readings drop to all zeros after metal contact that would
+            persist until repowering the robot. After reading
+            <a href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/managing_esd/managing-esd.html">FIRST's
+            article “Managing Electrostatic Discharge Effects”</a>, we learned that these IMU
+            flatlines could result from ESD: electrostatic discharge. The
+            <a href="https://firsttechchallenge.blogspot.com/2023/11/unexpected-imu-reset.html">FIRST
+            Tech Challenge Blog's 2023-11-21 post “Unexpected IMU Reset”</a> lead us to suspect REV
+            Robotics'
+            <a href="https://firsttechchallenge.blogspot.com/2022/11/first-tech-challenge-sdk-81-has-been.html">2022-09-23
+            IMU hardware changes</a> made to <a href="https://www.revrobotics.com/rev-31-1595/">REV-31-1595
+            Control Hubs</a>. We tested this hypothesis by switching our robot's control hub with an
+            older model and observing a reduction in IMU resets. Unfortunately, older generation
+            control hubs are a luxury of established teams and they won't survive the playfield
+            forever.</p>
 
-            <p><strong>Note:</strong> To determine which type of IMU your control hub contains without knowing its manufacture date, see the control hub's web interface as explained by <a href="https://docs.revrobotics.com/duo-control/sensors/i2c/imu#how-to-use">REV's IMU documentation</a>.</p>
+            <p><strong>Note:</strong> To determine which type of IMU your control hub contains
+            without knowing its manufacture date, see the control hub's web interface as explained
+            by <a href="https://docs.revrobotics.com/duo-control/sensors/i2c/imu#how-to-use">REV's
+            IMU documentation</a>.</p>
 
             <hr>
             <h2 id="background-existing-solutions">Existing Solutions</h2>
-            <p>If your robot suffers from similar <abbr title="Inertial Measurement Unit">IMU</abbr> issues or other electrical failures that might be caused by <abbr title="Electrostatic Discharge">ESD</abbr>, try these existing solutions first. Combine them to build up “defense in depth”, layering redundant protections that are less likely to all fail at once.</p>
+            <p>If your robot suffers from similar <abbr title="Inertial Measurement Unit">IMU</abbr>
+            issues or other electrical failures that might be caused by
+            <abbr title="Electrostatic Discharge">ESD</abbr>, try these existing solutions first.
+            Combine them to build up “defense in depth”, layering redundant protections that are
+            less likely to all fail at once.</p>
             <ul>
                 <li>
-                    <p>Add a <a href="https://www.revrobotics.com/rev-31-1269/">REV-31-1269 Resistive Grounding Strap</a> between a spare XT30 connector and the metal chassis of your robot. The bump in the middle of this wire hides a resistor that lets accumulated electric charge safely trickle from the metal frame into your control and expansion hubs, lowering the voltage (difference in density of electric charge) between them.</p>
-                    <p>Keep in mind that most extruded aluminum channel is “anodized”: coated in a non-conductive layer to prevent corrosion. Cut through it with a star washer or by scraping to make good electrical contact between the grounding strap's ring terminal and your robot's frame.</p>
+                    <p>Add a <a href="https://www.revrobotics.com/rev-31-1269/">REV-31-1269
+                    Resistive Grounding Strap</a> between a spare XT30 connector and the metal
+                    chassis of your robot. The bump in the middle of this wire hides a resistor that
+                    lets accumulated electric charge safely trickle from the metal frame into your
+                    control and expansion hubs, lowering the voltage (difference in density of
+                    electric charge) between them.</p>
+
+                    <p>Keep in mind that most extruded aluminum channel is “anodized”: coated in a
+                    non-conductive layer to prevent corrosion. Cut through it with a star washer or
+                    by scraping to make good electrical contact between the grounding strap's ring
+                    terminal and your robot's frame.</p>
                 </li>
-                <li><p>Cover exposed metal along the outside of your robot with an electrically insulating material where it could touch the truss or other robots. Metal-to-metal contact would allow electric charge to rush in or out of your robot's frame to balance with the other object.</p></li>
-                <li><p>Also cover any visible metal on wiring connectors and empty sockets with electrically insulating material like electrical tape. When the voltage between your robot's frame and its wiring grows too high, electricity can jump <em>through the air</em> one centimeter or more as a visible spark; This is the discharge of electricity that ESD refers to.</p></li>
-                <li><p>Update to REV's early-access Control Hub OS version 1.1.4 or newer, which claims to reduce the chance of IMU resets. <a href="https://firsttechchallenge.blogspot.com/2024/02/first-tech-challenge-sdk-and-rev.html">This FIRST Tech Challenge Blog post from 2024-02-24</a> explains how to install the early-access version.</p></li>
+                <li><p>Cover exposed metal along the outside of your robot with an electrically
+                insulating material where it could touch the truss or other robots. Metal-to-metal
+                contact would allow electric charge to rush in or out of your robot's frame to
+                balance with the other object.</p></li>
+
+                <li><p>Also cover any visible metal on wiring connectors and empty sockets with
+                electrically insulating material like electrical tape. When the voltage between your
+                robot's frame and its wiring grows too high, electricity can jump <em>through the
+                air</em> one centimeter or more as a visible spark; This is the discharge of
+                electricity that ESD refers to.</p></li>
+
+                <li><p>Update to REV's early-access Control Hub OS version 1.1.4 or newer, which
+                claims to reduce the chance of IMU resets.
+                <a href="https://firsttechchallenge.blogspot.com/2024/02/first-tech-challenge-sdk-and-rev.html">This
+                FIRST Tech Challenge Blog post from 2024-02-24</a> explains how to install the
+                early-access version.</p></li>
             </ul>
 
             <hr>
             <h2 id="background-our-solution">Our Solution</h2>
-            <p>Once your team has applied the previous suggestions for mitigating static, your new control hub's IMU may <em>still</em> reset when shocked. Fortunately, external IMU sensor boards using the same chip as original control hubs can still be purchased! Read on for a simple guide to buying, assembling, attaching, and configuring a replacement IMU in a 3D-printed enclosure designed by team 10809 Crow Force and the mentors of Sage Creek High School.</p>
+            <p>Once your team has applied the previous suggestions for mitigating static, your new
+            control hub's IMU may <em>still</em> reset when shocked. Fortunately, external IMU
+            sensor boards using the same chip as original control hubs can still be purchased! Read
+            on for a simple guide to buying, assembling, attaching, and configuring a replacement
+            IMU in a 3D-printed enclosure designed by team 10809 Crow Force and the mentors of Sage
+            Creek High School.</p>
         </div>
 
         <div class="block">
@@ -75,41 +128,67 @@
             <h1 id="software">Software</h1>
 
             <h2 id="software-driver-station">Driver Station</h2>
-            <p>It is very easy to get your external IMU to talk to your robot controller. Below are instructions on how to configure the external IMU using your connected driver station.</p>
-            <hr>
+            <p>It is very easy to get your external IMU to talk to your robot controller. Below are
+            instructions on how to configure the external IMU using your connected driver
+            station.</p>
 
+            <hr>
             <h3 id="software-driver-station-disable-internal-imu">Disable Internal IMU</h3>
-            <p>First, disable the built-in internal IMUs from your control hub using a connected driver station:</p>
+            <p>First, disable the built-in internal IMUs from your control hub using a connected
+            driver station:</p>
             <ol>
                 <li>
-                    <p>At the driver station's main screen, tap the three-dots button at the top right and select “Configure Robot”.</p>
+                    <p>At the driver station's main screen, tap the three-dots button at the top
+                    right and select “Configure Robot”.</p>
 
-                    <img class="DriverHubScreen" src="assets/images/DriverStation1.png" alt="The Driver Station's “Robot Configuration” screen listing two available configurations for editing: “2023_2024” and “camera”.">
+                    <img class="DriverHubScreen" src="assets/images/DriverStation1.png" alt="The
+                    Driver Station's “Robot Configuration” screen listing two available
+                    configurations for editing: “2023_2024” and “camera”.">
                 </li>
                 <li>
                     <p>Tap the “Edit” button of your existing robot configuration.</p>
 
-                    <img class="DriverHubScreen" src="assets/images/DriverStation2.png" alt="The Driver Station's “Robot Configuration” screen after opening the “2023_2024” configuration for editing. Two USB devices are listed for this configuration: “Webcam 1” and “Control Hub Portal”.">
+                    <img class="DriverHubScreen" src="assets/images/DriverStation2.png" alt="The
+                    Driver Station's “Robot Configuration” screen after opening the “2023_2024”
+                    configuration for editing. Two USB devices are listed for this configuration:
+                    “Webcam 1” and “Control Hub Portal”.">
                 </li>
                 <li>
-                    <p>Tap the “Control Hub Portal” within your robot configuration to see its connected control and expansion hubs.</p>
+                    <p>Tap the “Control Hub Portal” within your robot configuration to see its
+                    connected control and expansion hubs.</p>
 
-                    <img class="DriverHubScreen" src="assets/images/DriverStation3.png" alt="The Driver Station's “Robot Configuration” screen after selecting the USB device named “Control Hub Portal”. Two contained devices are listed: “Expansion Hub 2” and “Control Hub”.">
+                    <img class="DriverHubScreen" src="assets/images/DriverStation3.png" alt="The
+                    Driver Station's “Robot Configuration” screen after selecting the USB device
+                    named “Control Hub Portal”. Two contained devices are listed: “Expansion Hub 2”
+                    and “Control Hub”.">
                 </li>
                 <li>
                     <p>Tap “Control Hub” to view categories of connected peripherals.</p>
 
-                    <img class="DriverHubScreen" src="assets/images/DriverStation4.png" alt="The Driver Station's “Robot Configuration” screen after selecting the “Control Hub” entry within “Control Hub Portal”. The first five visible categories of connected peripherals are “Analog Input Devices”, “I2C Bus 0”, “I2C Bus 1”, “I2C Bus 2”, and “I2C Bus 3”.">
+                    <img class="DriverHubScreen" src="assets/images/DriverStation4.png" alt="The
+                    Driver Station's “Robot Configuration” screen after selecting the “Control Hub”
+                    entry within “Control Hub Portal”. The first five visible categories of
+                    connected peripherals are “Analog Input Devices”, “I2C Bus 0”, “I2C Bus 1”, “I2C
+                    Bus 2”, and “I2C Bus 3”.">
                 </li>
                 <li>
-                    <p>Tap “I2C Bus 0” to configure sensors connected to the first communications channel. The control hub's internal IMU is hardwired to this I2C bus.</p>
+                    <p>Tap “I2C Bus 0” to configure sensors connected to the first communications
+                    channel. The control hub's internal IMU is hardwired to this I2C bus.</p>
                 </li>
                 <li>
-                    <p>Look for any entries of “REV Control Hub IMU” and disable them by selecting “Nothing”.</p>
+                    <p>Look for any entries of “REV Control Hub IMU” and disable them by selecting
+                    “Nothing”.</p>
 
-                    <p><strong>Note:</strong> <em>Do not</em> add your external IMU on this I2C bus, since the unified <code>IMU</code> interface code for reading measurements will ignore your configuration and try to talk to the original internal IMU instead. See <a href="#software-driver-station-add-external-imu">the next section</a> for adding your external IMU to a different I2C bus.</p>
+                    <p><strong>Note:</strong> <em>Do not</em> add your external IMU on this I2C bus,
+                    since the unified <code>IMU</code> interface code for reading measurements will
+                    ignore your configuration and try to talk to the original internal IMU instead.
+                    See <a href="#software-driver-station-add-external-imu">the next section</a> for
+                    adding your external IMU to a different I2C bus.</p>
 
-                    <img class="DriverHubScreen" src="assets/images/DriverStation5.png" alt="The Driver Station's “Robot Configuration” screen after selecting “I2C Bus 0” within “Control Hub”. In the two-column table of port numbers and associated attached I2C devices, port zero has been assigned the device type “Nothing”.">
+                    <img class="DriverHubScreen" src="assets/images/DriverStation5.png" alt="The
+                    Driver Station's “Robot Configuration” screen after selecting “I2C Bus 0” within
+                    “Control Hub”. In the two-column table of port numbers and associated attached
+                    I2C devices, port zero has been assigned the device type “Nothing”.">
                 </li>
             </ol>
 
@@ -119,18 +198,29 @@
                 <li>
                     <p>Now go to I2C Bus 1 and add an “Adafruit IMU”.</p>
 
-                    <img class="DriverHubScreen" src="assets/images/DriverStation6.png" alt="The Driver Station's “Robot Configuration” screen after returning to the previous “Control Hub” screen and selecting “I2C Bus 1” instead. Port zero has been assigned the device type “Adafruit IMU”.">
+                    <img class="DriverHubScreen" src="assets/images/DriverStation6.png" alt="The
+                    Driver Station's “Robot Configuration” screen after returning to the previous
+                    “Control Hub” screen and selecting “I2C Bus 1” instead. Port zero has been
+                    assigned the device type “Adafruit IMU”.">
                 </li>
                 <li>
-                    <p>Name your external Adafruit IMU sensor to match how your code gets a reference to it (such as using <code class="language-java">hardwareMap.get</code> in Java). In the <a href="#software-sample-code">next section's code sample</a>, we will use the name “<kbd>imu</kbd>”.</p>
+                    <p>Name your external Adafruit IMU sensor to match how your code gets a
+                    reference to it (such as using <code class="language-java">hardwareMap.get</code>
+                    in Java). In the <a href="#software-sample-code">next section's code sample</a>,
+                    we will use the name “<kbd>imu</kbd>”.</p>
 
-                    <img class="DriverHubScreen" src="assets/images/DriverStation7.png" alt="The Driver Station's “Robot Configuration” screen after renaming the “Adafruit IMU” device on port zero of “I2C Bus 1” to “imu”.">
+                    <img class="DriverHubScreen" src="assets/images/DriverStation7.png" alt="The
+                    Driver Station's “Robot Configuration” screen after renaming the “Adafruit IMU”
+                    device on port zero of “I2C Bus 1” to “imu”.">
                 </li>
             </ol>
 
             <hr>
             <h2 id="software-sample-code">Sample Code</h2>
-            <p>The code below shows how to setup your new IMU. Make the name of your imu matches the name in IC Bus 2 slot on your drive hub. Another thing to note is the Orientation we have given about our IMU. This changes depending on how you have your external IMU positioned.</p>
+            <p>The code below shows how to setup your new IMU. Make the name of your imu matches the
+            name in IC Bus 2 slot on your drive hub. Another thing to note is the Orientation we
+            have given about our IMU. This changes depending on how you have your external IMU
+            positioned.</p>
 
             <pre><code class="language-java">package org.firstinspires.ftc.teamcode;
 
@@ -185,7 +275,8 @@ public class ExternalIMU extends LinearOpMode {
 
 
         <div class="footer">
-            <a href="https://github.com/CrowForce" target="_blank">Github</a> | <a href="https://crowforce10809.wixsite.com/ftc-robotics" target="_blank">Buisness Website</a>
+            <a href="https://github.com/CrowForce" target="_blank">Github</a> |
+            <a href="https://crowforce10809.wixsite.com/ftc-robotics" target="_blank">Buisness Website</a>
         </div>
     </div>
 </html>
