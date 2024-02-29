@@ -73,12 +73,6 @@ html{
     font-size: 100%;
 }
 
-.openimu{
-    .header{
-        background: linear-gradient(30deg, rgba(27,30,38,1) 0%, rgba(231,63,36,1) 50%, rgba(191,97,106,1) 100%);
-    }
-}
-
 .header{
     margin-top: 0.625rem;
     
