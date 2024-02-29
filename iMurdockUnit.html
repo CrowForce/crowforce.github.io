@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>OpenIMU - Crow Force</title>
+        <title>iMurdockUnit - Crow Force</title>
         <link rel="stylesheet" href="index.css">
         <link rel="stylesheet" href="assets/prism/prism.css">
         <script src="assets/prism/prism.js"></script>
@@ -14,17 +14,17 @@
         </style>
     </head>
 
-    <div class="openimu">
+    <div class="imurdockunit">
         <div class="nav">
             <a href="index.html">Home</a>
             <a href="hardware.html">Hardware</a>
             <a href="software.html">Software</a>
-            <a id="currentpage" href="#">OpenIMU</a>
+            <a id="currentpage" href="#">iMurdockUnit</a>
             <a href="https://crowforce10809.wixsite.com/ftc-robotics" target="_blank">Business Website</a>
         </div>
 
         <div class="header">
-            <h1>OpenIMU</h1>
+            <h1>iMurdockUnit - An External IMU Enclosure</h1>
         </div>
 
         <div class="block">
@@ -112,7 +112,7 @@
             <h1 id="hardware">Hardware</h1>
 
             <h2>Some Assembly Required</h2>
-            <p>To build the OpenIMU, you will need some base knowledge on/with:</p>
+            <p>To build the iMurdockUnit, you will need some base knowledge on/with:</p>
             <ul>
                 <li>Soldering</li>
                 <li>General Hardware Assembly</li>
@@ -246,8 +246,8 @@ public class ExternalIMU extends LinearOpMode {
         //Parameters for IMU
         imuParameters = new IMU.Parameters(
             new RevHubOrientationOnRobot(
-                //The OpenIMU holds its external IMU in the same orientation as
-                //an internal IMU, so you can copy your original values here.
+                //The iMurdockUnit holds its external IMU in the same orientation
+                //as an internal IMU, so you can copy your original values here.
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
             )
