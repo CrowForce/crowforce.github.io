@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>OpenIMU - CrowForce</title>
+        <title>OpenIMU - Crow Force</title>
         <link rel="stylesheet" href="index.css">
         <link rel="stylesheet" href="assets/prism/prism.css">
         <script src="assets/prism/prism.js"></script>
@@ -31,17 +31,28 @@
             <h1 id="background">Background</h1>
 
             <h2 id="background-problem">The Problem</h2>
-            <p>Over our first three competitions, team 10809 CrowForce sacrificed points during autonomous and tele-op when our robot became disoriented, causing failures in autonomous trajectory sequences and field-centric driver control. These failures seemed to coincide with collisions between exposed metal on our robot and other metalic objects on the field such as the 2023-'24 CENTERSTAGE™ game's truss supports and other robots.</p>
+            <p>Over our first three competitions, team 10809 Crow Force sacrificed points during autonomous and tele-op when our robot became disoriented, causing failures in autonomous trajectory sequences and field-centric driver control. These failures seemed to coincide with collisions between exposed metal on our robot and other conductive objects on the field such as the 2023-'24 CENTERSTAGE™ game's truss supports and other robots.</p>
 
-            <p>By finding a way to reproduce failures with truss contact and then printing Inertial Measurement Unit (IMU) orientation telemetry to the driver hub, we observed our gyroscope and accelerometer readings drop to all zeros after metal contact that would persist until repowering the robot. We learned that these IMU flatlines resulted from electrostatic discharge (also known as ESD); See <a href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/managing_esd/managing-esd.html">FIRST's article “Managing Electrostatic Discharge Effects”</a> to learn more. Our investigation lead us to suspect that the hardware changes to <a href="https://www.revrobotics.com/rev-31-1595/">REV Robotics' REV-31-1595 Control Hubs</a> made after December 1st 2021 left those newer control hubs more succeptible to ESD events (this change coincided with the <a href="https://www.revrobotics.com/blog/expansion-hub-IMU-updates">removal of IMUs from new expansion hubs</a>). We tested this hypothesis by switching our robot's control hub with an older model and observing a reduction in IMU resets. Unfortunately, older generation control hubs are a luxury of established teams and they won't survive the playfield forever.</p>
+            <p>By finding a way to reproduce failures with truss contact and then printing Inertial Measurement Unit (IMU) orientation telemetry to the driver hub, we observed our gyroscope and accelerometer readings drop to all zeros after metal contact that would persist until repowering the robot. After reading <a href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/managing_esd/managing-esd.html">FIRST's article “Managing Electrostatic Discharge Effects”</a>, we learned that these IMU flatlines could result from ESD: electrostatic discharge. The <a href="https://firsttechchallenge.blogspot.com/2023/11/unexpected-imu-reset.html">FIRST Tech Challenge Blog's 2023-11-21 post “Unexpected IMU Reset”</a> lead us to suspect REV Robotics' <a href="https://firsttechchallenge.blogspot.com/2022/11/first-tech-challenge-sdk-81-has-been.html">2022-09-23 IMU hardware changes</a> made to <a href="https://www.revrobotics.com/rev-31-1595/">REV-31-1595 Control Hubs</a>. We tested this hypothesis by switching our robot's control hub with an older model and observing a reduction in IMU resets. Unfortunately, older generation control hubs are a luxury of established teams and they won't survive the playfield forever.</p>
 
             <p><strong>Note:</strong> To determine which type of IMU your control hub contains without knowing its manufacture date, see the control hub's web interface as explained by <a href="https://docs.revrobotics.com/duo-control/sensors/i2c/imu#how-to-use">REV's IMU documentation</a>.</p>
 
             <hr>
-            <h2 id="background-solution">Our Solution</h2>
-            <p>Once your team has applied FIRST's suggestions for mitigating static, such as adding a resistive grounding strap and shielding exposed metal surfaces with electrically insulating material, your new control hub's IMU may <em>still</em> reset when shocked.</p>
+            <h2 id="background-existing-solutions">Existing Solutions</h2>
+            <p>If your robot suffers from similar <abbr title="Inertial Measurement Unit">IMU</abbr> issues or other electrical failures that might be caused by <abbr title="Electrostatic Discharge">ESD</abbr>, try these existing solutions first. Combine them to build up “defense in depth”, layering redundant protections that are less likely to all fail at once.</p>
+            <ul>
+                <li>
+                    <p>Add a <a href="https://www.revrobotics.com/rev-31-1269/">REV-31-1269 Resistive Grounding Strap</a> between a spare XT30 connector and the metal chassis of your robot. The bump in the middle of this wire hides a resistor that lets accumulated electric charge safely trickle from the metal frame into your control and expansion hubs, lowering the voltage (difference in density of electric charge) between them.</p>
+                    <p>Keep in mind that most extruded aluminum channel is “anodized”: coated in a non-conductive layer to prevent corrosion. Cut through it with a star washer or by scraping to make good electrical contact between the grounding strap's ring terminal and your robot's frame.</p>
+                </li>
+                <li><p>Cover exposed metal along the outside of your robot with an electrically insulating material where it could touch the truss or other robots. Metal-to-metal contact would allow electric charge to rush in or out of your robot's frame to balance with the other object.</p></li>
+                <li><p>Also cover any visible metal on wiring connectors and empty sockets with electrically insulating material like electrical tape. When the voltage between your robot's frame and its wiring grows too high, electricity can jump <em>through the air</em> one centimeter or more as a visible spark; This is the discharge of electricity that ESD refers to.</p></li>
+                <li><p>Update to REV's early-access Control Hub OS version 1.1.4 or newer, which claims to reduce the chance of IMU resets. <a href="https://firsttechchallenge.blogspot.com/2024/02/first-tech-challenge-sdk-and-rev.html">This FIRST Tech Challenge Blog post from 2024-02-24</a> explains how to install the early-access version.</p></li>
+            </ul>
 
-            <p>Fortunately, external IMU sensor boards using the same chip as original control hubs can still be purchased! Read on for a simple guide to buying, assembling, attaching, and configuring a replacement IMU in a 3D-printed enclosure designed by team 10809 CrowForce and the mentors of Sage Creek High School.</p>
+            <hr>
+            <h2 id="background-our-solution">Our Solution</h2>
+            <p>Once your team has applied the previous suggestions for mitigating static, your new control hub's IMU may <em>still</em> reset when shocked. Fortunately, external IMU sensor boards using the same chip as original control hubs can still be purchased! Read on for a simple guide to buying, assembling, attaching, and configuring a replacement IMU in a 3D-printed enclosure designed by team 10809 Crow Force and the mentors of Sage Creek High School.</p>
         </div>
 
         <div class="block">
