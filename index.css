@@ -176,6 +176,9 @@ html{
     font-family: ChesnaGrotesk;
     font-size: 1.125rem;
     line-height: 2rem;
+}
+
+.block ul{
     list-style-type: circle;
 }
 
