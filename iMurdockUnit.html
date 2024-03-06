@@ -212,6 +212,7 @@
                     locking tabs, the cable's wires from left to right are colored blue, white, red,
                     black.">
                 </li>
+                <li>Lead-Free Solder</li>
                 <li>4× Button-Cap M4 Screws, ≥8mm</li>
                 <li>4× M4 Nyloc Nuts</li>
                 <li>Super Glue</li>
@@ -219,9 +220,69 @@
 
             <hr>
             <h2 id="hardware-assembly-instructions">Assembly Instructions</h2>
-            <p></p>
+            <p>Warning: Safety first. Wear safety glasses when cutting wire or while soldering, and
+            be careful with the cutting end of wire cutters and wire strippers.</p>
             <ol>
-                <li></li>
+                <li><p>Begin 3D printing the base and cap pieces:
+                <a href="assets/downloads/iMurdockUnit.step.zip" download>STEP file</a>,
+                <a href="assets/downloads/iMurdockUnit.stl.zip" download>STL file</a>.</p></li>
+
+                <li><p>Use wire cutters to cut the sensor cable, leaving about 10cm of cable
+                connected to the JST PH4 connector that plugs into control or expansion hubs.
+                Discard the rest of the cable.</p></li>
+
+                <li><p>At the cut end of the remaining sensor cable, pull the cable's individual
+                wires apart by about 2cm so that end appears frayed.</p></li>
+
+                <li><p>Use wire strippers to expose about 4mm of copper from wires at the sensor
+                cable's frayed end.</p></li>
+
+                <li><p>In a well ventilated area, use a soldering iron and lead-free solder to
+                    connect the following stripped sensor cable wires to the Adafruit 2472 IMU
+                    breakout board:</p>
+
+                    <p><em>Note: Don't match the photo; it is only for reference matching wire
+                    colors to breakout board pads. In the iMurdockUnit, these wires must come out
+                    the top of the breakout board.</em></p>
+
+                    <ul style="float: left; margin-right: 1lh;">
+                        <li>Red: <code>Vin</code></li>
+                        <li>Black: <code>GND</code></li>
+                        <li>White: <code>SDA</code></li>
+                        <li>Blue: <code>SCL</code></li>
+                    </ul>
+
+                    <a href="assets/images/iMurdockUnit/Breakout%20Wiring.webp"><img
+                    src="assets/images/iMurdockUnit/Breakout%20Wiring.webp"
+                    style="height: 6lh; width: auto;" alt="Color coded jumper wires plugged into
+                    header pins that have been soldered into an Adafruit 2472 IMU breakout
+                    board."></a>
+
+                    <p>Use this technique for each wire:</p>
+                    <ol style="clear: left;">
+                        <li>
+                            <p>Insert the stripped end of the wire through the top of the board (the
+                            side labelled “BNO055”) until the wire's insulation almost contacts the
+                            board.</p>
+
+                            <p><em>Note: Do not tin the wire first, or else you may bend unseen wire
+                            strands.</em></p>
+                        </li>
+
+                        <li><p>Apply solder where the wire protrudes from the bottom, being careful
+                        not to connect with neighboring pads.</p></li>
+
+                        <li><p>Trim excess wire from the solder blob.</p></li>
+                    </ol>
+                </li>
+
+                <li><p>Wait for both 3D printed parts from step 1 to complete, and remove any
+                scaffolding.</p></li>
+
+                <li><p>Use super glue to affix four M4 nyloc nuts into the corner slots of the
+                smaller 3D printed cap piece labelled “IMU”. With the lettering facing upwards, the
+                nuts' threaded sides should face downwards. Be careful not to get super glue inside
+                the threads.</p></li>
             </ol>
         </div>
 
