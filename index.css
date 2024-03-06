@@ -134,6 +134,7 @@ html{
     padding: 1.25rem;
     margin-top: 1.25rem;
     margin-right: 1.25rem;
+    overflow: auto;
 
     box-sizing: border-box;
     border: 0.125rem solid var(--nord3);
@@ -175,6 +176,7 @@ html{
     font-family: ChesnaGrotesk;
     font-size: 1.125rem;
     line-height: 2rem;
+    list-style-type: circle;
 }
 
 .block a{
