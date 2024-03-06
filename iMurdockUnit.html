@@ -6,20 +6,37 @@
         <link rel="stylesheet" href="assets/prism/prism.css">
         <script src="assets/prism/prism.js"></script>
         <style>
-            .imurdockunit .header{
+            .header {
                 background:
                     url("assets/images/iMurdockUnit/Logo.svg") no-repeat center right 5% / auto 200%,
                     linear-gradient(30deg, rgba(27,30,38,1) 0%, rgba(231,63,36,1) 50%, rgba(191,97,106,1) 100%);
             }
+            aside {
+                font-style: italic;
+            }
+            .block img {
+                margin-top: 0;
+            }
+            .PreviewRenders {
+                text-align: center;
+            }
+            .PreviewRenders img {
+                border: none;
+                width: 45%;
+                height: auto;
+                vertical-align: middle;
+            }
+            .PreviewRenders a + a {
+                margin-left: 1em;
+            }
             img.DriverHubScreen {
                 height: 10lh;
                 width: auto;
-                margin-top: 0;
             }
         </style>
     </head>
 
-    <div class="imurdockunit">
+    <div>
         <div class="nav">
             <a href="index.html">Home</a>
             <a href="hardware.html">Hardware</a>
@@ -46,18 +63,18 @@
             Measurement Unit (IMU) orientation telemetry to the driver hub, we observed our
             gyroscope and accelerometer readings drop to all zeros after metal contact that would
             persist until repowering the robot. After reading
-            <a href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/managing_esd/managing-esd.html">FIRST's
-            article “Managing Electrostatic Discharge Effects”</a>, we learned that these IMU
-            flatlines could result from ESD: electrostatic discharge. The
-            <a href="https://firsttechchallenge.blogspot.com/2023/11/unexpected-imu-reset.html">FIRST
-            Tech Challenge Blog's 2023-11-21 post “Unexpected IMU Reset”</a> lead us to suspect REV
-            Robotics'
-            <a href="https://firsttechchallenge.blogspot.com/2022/11/first-tech-challenge-sdk-81-has-been.html">2022-09-23
-            IMU hardware changes</a> made to <a href="https://www.revrobotics.com/rev-31-1595/">REV-31-1595
-            Control Hubs</a>. We tested this hypothesis by switching our robot's control hub with an
-            older model and observing a reduction in IMU resets. Unfortunately, older generation
-            control hubs are a luxury of established teams and they won't survive the playfield
-            forever.</p>
+            <a href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/managing_esd/managing-esd.html"
+            >FIRST's article “Managing Electrostatic Discharge Effects”</a>, we learned that these
+            IMU flatlines could result from ESD: electrostatic discharge. The
+            <a href="https://firsttechchallenge.blogspot.com/2023/11/unexpected-imu-reset.html"
+            >FIRST Tech Challenge Blog's 2023-11-21 post “Unexpected IMU Reset”</a> lead us to
+            suspect REV Robotics'
+            <a href="https://firsttechchallenge.blogspot.com/2022/11/first-tech-challenge-sdk-81-has-been.html"
+            >2022-09-23 IMU hardware changes</a> made to
+            <a href="https://www.revrobotics.com/rev-31-1595/">REV-31-1595 Control Hubs</a>. We
+            tested this hypothesis by switching our robot's control hub with an older model and
+            observing a reduction in IMU resets. Unfortunately, older generation control hubs are a
+            luxury of established teams and they won't survive the playfield forever.</p>
 
             <p><strong>Note:</strong> To determine which type of IMU your control hub contains
             without knowing its manufacture date, see the control hub's web interface as explained
@@ -84,6 +101,11 @@
                     non-conductive layer to prevent corrosion. Cut through it with a star washer or
                     by scraping to make good electrical contact between the grounding strap's ring
                     terminal and your robot's frame.</p>
+
+                    <img src="assets/images/iMurdockUnit/Grounding%20Strap%20Fasteners.webp"
+                    style="height: 3lh; width: auto;" alt="A 3D rendering of a grounding strap's
+                    ring terminal fastened to aluminum extrusion, with a toothed lock washer in
+                    between that has scratched through the extrusion's anodized coating.">
                 </li>
                 <li><p>Cover exposed metal along the outside of your robot with an electrically
                 insulating material where it could touch the truss or other robots. Metal-to-metal
@@ -98,8 +120,8 @@
 
                 <li><p>Update to REV's early-access Control Hub OS version 1.1.4 or newer, which
                 claims to reduce the chance of IMU resets.
-                <a href="https://firsttechchallenge.blogspot.com/2024/02/first-tech-challenge-sdk-and-rev.html">This
-                FIRST Tech Challenge Blog post from 2024-02-24</a> explains how to install the
+                <a href="https://firsttechchallenge.blogspot.com/2024/02/first-tech-challenge-sdk-and-rev.html"
+                >This FIRST Tech Challenge Blog post from 2024-02-24</a> explains how to install the
                 early-access version.</p></li>
             </ul>
 
@@ -107,33 +129,100 @@
             <h2 id="background-our-solution">Our Solution</h2>
             <p>Once your team has applied the previous suggestions for mitigating static, your new
             control hub's IMU may <em>still</em> reset when shocked. Fortunately, external IMU
-            sensor boards using the same chip as original control hubs can still be purchased! Read
-            on for a simple guide to buying, assembling, attaching, and configuring a replacement
-            IMU in a 3D-printed enclosure designed by team 10809 Crow Force and the mentors of Sage
-            Creek High School.</p>
+            sensor boards using the same chip as original control hubs can still be purchased!
+            <a href="#hardware">Read on</a> for a simple guide to buying, assembling, attaching, and
+            configuring a replacement IMU in a 3D-printed enclosure designed by team 10809 Crow
+            Force and the mentors of Sage Creek High School.</p>
 
-            <p>This project was named after Murdock, Crow Force's crow mascot. Did you know that
-            <a href="https://www.ox.ac.uk/news/science-blog/how-birds-sense-magnetic-field-earth-help-them-navigate">some
-            migratory birds may be able to sense electromagnetic fields</a> to help them navigate,
-            like the magnetometer compass in an IMU? Check out
-            <a href="https://crowforce10809.wixsite.com/ftc-robotics/murdock-moments" target="_blank">where
-            Murdock has navigated to</a>.</p>
+            <div class="PreviewRenders">
+                <a href="assets/images/iMurdockUnit/Render.webp"><img
+                src="assets/images/iMurdockUnit/Render.webp" alt="A 3D render of the iMurdockUnit
+                pressed over the center hump of a control hub with connectors facing upwards. A
+                rectangular red cap labelled “IMU” is bolted onto the iMurdockUnit."></a>
+
+                <a href="assets/images/iMurdockUnit/Underside%20Logos.png"><img
+                src="assets/images/iMurdockUnit/Underside%20Logos.png" alt="A 3D render of the
+                bottom of an iMurdockUnit revealing several labels and logos: FTC Team 10809 Crow
+                Force, SCHS, and Carlsbad Educational Foundation."></a>
+            </div>
+
+            <h3 id="background-our-solution-design-goals">Design Goals</h3>
+            <ul>
+                <li><p>The external IMU's position and rotation are aligned with a hub's internal
+                IMU except raised towards the iMurdockUnit by 27.2mm. Gyroscope readings will match
+                the internal IMU without code changes, and accelerometer readings will only vary
+                slightly while rotating.</p></li>
+
+                <li><p>The I2C sensor cable is strain-reliefed to prevent tugging on its soldered
+                connections to the external IMU.</p></li>
+            </ul>
+
+            <aside>
+                <p>This project was named after Murdock, Crow Force's crow mascot. Did you know that
+                <a href="https://www.ox.ac.uk/news/science-blog/how-birds-sense-magnetic-field-earth-help-them-navigate"
+                >some migratory birds may be able to sense electromagnetic fields</a> to help them
+                navigate, like the magnetometer compass in an IMU? Check out
+                <a href="https://crowforce10809.wixsite.com/ftc-robotics/murdock-moments"
+                target="_blank">where Murdock has navigated to</a>.</p>
+            </aside>
         </div>
 
         <div class="block">
             <h1 id="hardware">Hardware</h1>
 
-            <h2>Some Assembly Required</h2>
-            <p>To build the iMurdockUnit, you will need some base knowledge on/with:</p>
+            <h2 id="hardware-required-tools">Required Tools</h2>
+            <p>To assemble an iMurdockUnit, you will use the following tools:</p>
             <ul>
-                <li>Soldering</li>
-                <li>General Hardware Assembly</li>
-                <li>3D Printing and Post-Processing Prints</li>
+                <li>3D Printer</li>
+                <li>Soldering Iron</li>
+                <li>Wire Cutters</li>
+                <li>Wire Strippers</li>
+            </ul>
+
+            <h2 id="hardware-required-materials">Required Materials</h2>
+            <p>One iMurdockUnit is made from the following components:</p>
+            <ul>
+                <li><a href="https://www.adafruit.com/product/2472">Adafruit 2472: BNO055 IMU
+                    Breakout Board</a>
+
+                    <p>This sensor board features the same Bosch BNO055 IMU chip that previous
+                    generation control hubs included.</p>
+
+                    <img src="assets/images/iMurdockUnit/Adafruit%202472.webp"
+                    style="height: 3lh; width: auto;" alt="A blue Adafruit 2472 circuit board
+                    labelled BNO055, 9-Axis Absolute Orientation.">
+                </li>
+                <li>Semi-Rigid 3D Printer Filament (such as PLA)
+
+                    <p>The printed part press-fits onto the top of a control or expansion hub, so
+                    more flexible plastics will conform and hold on better.</p>
+                </li>
+                <li><a href="https://www.revrobotics.com/JST-PH-4-pin-Sensor-Cables/">REV Robotics
+                    REV-31-1407-PK4</a> or Equivalent, ≥10cm
+
+                    <p>Only half of this sensor cable requires a JST PH4 connector to fit into the
+                    control or expansion hub's I2C ports; The other end will directly solder to the
+                    IMU breakout board. To simplify wiring with these instructions, find a cable
+                    that matches REV's sensor wire colors: blue (pin 1), white, red, black.</p>
+
+                    <img src="assets/images/iMurdockUnit/JST%20PH4%20Rev%20Wiring.webp"
+                    style="height: 3lh; width: auto;" alt="The JST PH4 connector at the end of a REV
+                    Robotics REV-31-1407-PK4 sensor cable. With its contacts facing down and cable
+                    going upwards, viewed from the side with four small holes exposing the pins'
+                    locking tabs, the cable's wires from left to right are colored blue, white, red,
+                    black.">
+                </li>
+                <li>4× Button-Cap M4 Screws, ≥8mm</li>
+                <li>4× M4 Nyloc Nuts</li>
+                <li>Super Glue</li>
             </ul>
 
             <hr>
-            <h2>Assembly Instructions:</h2>
-            <p>WIP, coming soon :)</p>
+            <h2 id="hardware-assembly-instructions">Assembly Instructions</h2>
+            <p></p>
+            <ol>
+                <li></li>
+            </ol>
         </div>
 
         <div class="block">
