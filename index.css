@@ -103,6 +103,7 @@ html{
     overflow: hidden;
     font-family: ChesnaGrotesk;
     border-radius: 0.3125rem;
+    font-size: 1rem;
 
     background-color: var(--accentcolor);
 }
@@ -234,11 +235,12 @@ html{
     box-sizing: border-box;
     border: 0.125rem solid var(--accentcolor);
     border-radius: 0.625rem;
+    font-size: 1rem;
 }
 
 .footer a{
     color: var(--nord6);
-    font-family: SometypeMonoItalic;
+    font-family: SometypeMono;
 }
 
 hr{
@@ -255,4 +257,16 @@ p {
 
     font-family: ChesnaGrotesk;
     font-size: 0.75rem;
+}
+
+/*FOR MOBILE/SMALL SCREEN FORMATTING ONLY*/
+@media only screen and (max-width: 600px){
+    .nav{
+        font-size: 1.25rem;
+    }
+
+    .footer{
+        font-size: 1.5rem;
+    }
+    
 }
