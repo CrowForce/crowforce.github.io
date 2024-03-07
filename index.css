@@ -134,6 +134,7 @@ html{
 
 .Right{
     max-width: 33%;
+    order: 1;
 }
 
 .block{
@@ -213,24 +214,16 @@ html{
     clear: both;
 }
 
-@media screen and (max-width: 600px) {
-    .Left, .Right{
-      width: 100%;
-    }
-}
-
 .footer{
     padding: 1.25rem;
     background-color: var(--secondarycolor);
 
     text-align: center;
-    position: absolute;
     align-self: center;
-    left: 2.5%;
     font-family: SometypeMono;
     color: var(--nord4);
 
-    width: 95%;
+    max-width: 100%;
     margin-top: 0.625rem;
     box-sizing: border-box;
     border: 0.125rem solid var(--accentcolor);
@@ -260,9 +253,22 @@ p {
 }
 
 /*FOR MOBILE/SMALL SCREEN FORMATTING ONLY*/
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 37.5rem){
     .nav{
         font-size: 1.25rem;
+    }
+    
+    .row{
+        flex-direction: column;
+    }
+
+    .Left{
+        max-width: 100%;
+    }
+
+    .Right{
+        max-width: 100%;
+        order: -1;
     }
 
     .footer{
