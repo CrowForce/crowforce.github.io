@@ -138,7 +138,7 @@
                 <a href="assets/images/iMurdockUnit/Render.webp"><img
                 src="assets/images/iMurdockUnit/Render.webp" alt="A 3D render of the iMurdockUnit
                 pressed over the center hump of a control hub with connectors facing upwards. A
-                rectangular red cap labelled “IMU” is bolted onto the iMurdockUnit."></a>
+                rectangular red cap labeled “IMU” is bolted onto the iMurdockUnit."></a>
 
                 <a href="assets/images/iMurdockUnit/Underside%20Logos.png"><img
                 src="assets/images/iMurdockUnit/Underside%20Logos.png" alt="A 3D render of the
@@ -190,7 +190,7 @@
 
                     <img src="assets/images/iMurdockUnit/Adafruit%202472.webp"
                     style="height: 3lh; width: auto;" alt="A blue Adafruit 2472 circuit board
-                    labelled BNO055, 9-Axis Absolute Orientation.">
+                    labeled BNO055, 9-Axis Absolute Orientation.">
                 </li>
                 <li>Semi-Rigid 3D Printer Filament (such as PLA)
 
@@ -215,7 +215,7 @@
                 <li>Lead-Free Solder</li>
                 <li>4× Button-Cap M4 Screws, ≥8mm</li>
                 <li>4× M4 Nyloc Nuts</li>
-                <li>Super Glue</li>
+                <li>Super Glue (Cyanoacrylate)</li>
             </ul>
 
             <hr>
@@ -262,7 +262,7 @@
                     <ol style="clear: left;">
                         <li>
                             <p>Insert the stripped end of the wire through the top of the board (the
-                            side labelled “BNO055”) until the wire's insulation almost contacts the
+                            side labeled “BNO055”) until the wire's insulation almost contacts the
                             board.</p>
 
                             <p><em>Note: Do not tin the wire first, or else you may bend unseen wire
@@ -280,10 +280,56 @@
                 scaffolding.</p></li>
 
                 <li><p>Use super glue to affix four M4 nyloc nuts into the corner slots of the
-                smaller 3D printed cap piece labelled “IMU”. With the lettering facing upwards, the
+                smaller 3D printed cap piece labeled “IMU”. With the lettering facing upwards, the
                 nuts' threaded sides should face downwards. Be careful not to get super glue inside
                 the threads.</p></li>
+
+                <li>
+                    <p>Set the IMU breakout board onto the four tapered alignment pins within the
+                    larger 3D printed base's cutout. Centered within those pins is an engraving of a
+                    small rectangle with a dot in one corner; Locate the breakout board's black IMU
+                    chip with white dot, and match their orientations. Labels on the breakout board
+                    should be upside down compared to those on the 3D printed part.</p>
+
+                    <a href="assets/images/iMurdockUnit/Without%20Cap.webp"><img
+                    src="assets/images/iMurdockUnit/Without%20Cap.webp" alt="The IMU breakout board
+                    resting on four alignment pins on the top of a 3D printed iMurdockUnit base
+                    piece. Labels engraved into the two pieces are vertically flipped."></a>
+                </li>
+
+                <li>
+                    <p>The sensor cable should extend from the IMU breakout board over a channel in
+                    the larger 3D printed base. Align the cable with this channel and then press the
+                    smaller 3D printed cap on top with text from both 3D printed pieces in the same
+                    orientation. Maintain pressure to constrain the sandwiched IMU and cable while
+                    threading four button-cap M4 screws from the bottom of the base through the
+                    cap; Tighten the screws evenly, and <em>do not over-tighten them</em>. The
+                    following cut-away rendering illustrates how the sensor cable should fold
+                    between channels in the 3D printed parts to create strain relief.</p>
+
+                    <a href="assets/images/iMurdockUnit/Strain%20Relief%20Cutaway.png"><img
+                    src="assets/images/iMurdockUnit/Strain%20Relief%20Cutaway.png" alt="A 3D
+                    rendered cut-away view of how the iMurdockUnit's 3D printed base and cap
+                    sandwich the IMU breakout board and its soldered cable. The cable passes through
+                    a snaking tunnel that acts as strain relief once tightened."></a>
+                </li>
             </ol>
+
+            <hr>
+            <h2 id="hardware-installation">Installation</h2>
+            <p>The assembled iMurdockUnit rides on a control or expansion hub's orange hump with
+            diagonal white stripe. Rotate the iMurdockUnit so that its sensor cable extends towards
+            the hub's I2C ports. Once aligned, press the iMurdocUnit down firmly onto the hub.
+            Lastly, plug its dangling sensor wire into the hub's I2C port 1, 2, or 3 connector.</p>
+
+            <p><em>Note: Port 0 must not be used because it already connects to the hub's internal
+            IMU. The Java class <code>com.qualcomm.robotcore.hardware.IMU</code> prefers to connect
+            with the internal IMU if it and the iMurdockUnit external IMU are connected to the same
+            I2C port.</em></p>
+
+            <a href="assets/images/iMurdockUnit/Installed.webp"><img
+            src="assets/images/iMurdockUnit/Installed.webp" alt="An assembled iMurdockUnit mounted
+            onto a powered expansion hub and connected to the I2C 1 port."></a>
         </div>
 
         <div class="block">
