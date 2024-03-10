@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>iMurdockUnit - Crow Force</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="assets/prism/prism.css">
+        <script src="assets/prism/prism.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+        <style>
+            .header {
+                background:
+                    url("assets/images/iMurdockUnit/Logo.svg") no-repeat center right 5% / auto 200%,
+                    linear-gradient(30deg, rgba(27,30,38,1) 0%, rgba(231,63,36,1) 50%, rgba(191,97,106,1) 100%);
+            }
+            aside {
+                font-style: italic;
+            }
+            .block img {
+                margin-top: 0;
+            }
+            .PreviewRenders {
+                text-align: center;
+            }
+            .PreviewRenders img {
+                border: none;
+                width: 45%;
+                height: auto;
+                vertical-align: middle;
+            }
+            .PreviewRenders a + a {
+                margin-left: 1em;
+            }
+            img.DriverHubScreen {
+                height: 10lh;
+                width: auto;
+            }
+        </style>
+    </head>
+
+    <div>
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="hardware.html">Hardware</a>
+            <a href="software.html">Software</a>
+            <a id="currentpage" href="#">iMurdockUnit</a>
+            <a href="https://crowforce10809.wixsite.com/ftc-robotics" target="_blank">Business Website</a>
+        </div>
+
+        <div class="header">
+            <h1>iMurdockUnit - An External IMU Enclosure</h1>
+        </div>
+
+        <div class="block">
+            <h1 id="background">Background</h1>
+
+            <h2 id="background-problem">The Problem</h2>
+            <p>Over our first three competitions, team 10809 Crow Force sacrificed points during
+            autonomous and tele-op when our robot became disoriented, causing failures in autonomous
+            trajectory sequences and field-centric driver control. These failures seemed to coincide
+            with collisions between exposed metal on our robot and other conductive objects on the
+            field such as the 2023-'24 CENTERSTAGE™ game's truss supports and other robots.</p>
+
+            <p>By finding a way to reproduce failures with truss contact and then printing Inertial
+            Measurement Unit (IMU) orientation telemetry to the driver hub, we observed our
+            gyroscope and accelerometer readings drop to all zeros after metal contact that would
+            persist until repowering the robot. After reading
+            <a href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/managing_esd/managing-esd.html"
+            >FIRST's article “Managing Electrostatic Discharge Effects”</a>, we learned that these
+            IMU flatlines could result from ESD: electrostatic discharge. The
+            <a href="https://firsttechchallenge.blogspot.com/2023/11/unexpected-imu-reset.html"
+            >FIRST Tech Challenge Blog's 2023-11-21 post “Unexpected IMU Reset”</a> lead us to
+            suspect REV Robotics'
+            <a href="https://firsttechchallenge.blogspot.com/2022/11/first-tech-challenge-sdk-81-has-been.html"
+            >2022-09-23 IMU hardware changes</a> made to
+            <a href="https://www.revrobotics.com/rev-31-1595/">REV-31-1595 Control Hubs</a>. We
+            tested this hypothesis by switching our robot's control hub with an older model and
+            observing a reduction in IMU resets. Unfortunately, older generation control hubs are a
+            luxury of established teams and they won't survive the playfield forever.</p>
+
+            <p><strong>Note:</strong> To determine which type of IMU your control hub contains
+            without knowing its manufacture date, see the control hub's web interface as explained
+            by <a href="https://docs.revrobotics.com/duo-control/sensors/i2c/imu#how-to-use">REV's
+            IMU documentation</a>.</p>
+
+            <hr>
+            <h2 id="background-existing-solutions">Existing Solutions</h2>
+            <p>If your robot suffers from similar <abbr title="Inertial Measurement Unit">IMU</abbr>
+            issues or other electrical failures that might be caused by
+            <abbr title="Electrostatic Discharge">ESD</abbr>, try these existing solutions first.
+            Combine them to build up “defense in depth”, layering redundant protections that are
+            less likely to all fail at once.</p>
+            <ul>
+                <li>
+                    <p>Add a <a href="https://www.revrobotics.com/rev-31-1269/">REV-31-1269
+                    Resistive Grounding Strap</a> between a spare XT30 connector and the metal
+                    chassis of your robot. The bump in the middle of this wire hides a resistor that
+                    lets accumulated electric charge safely trickle from the metal frame into your
+                    control and expansion hubs, lowering the voltage (difference in density of
+                    electric charge) between them.</p>
+
+                    <p>Keep in mind that most extruded aluminum channel is “anodized”: coated in a
+                    non-conductive layer to prevent corrosion. Cut through it with a star washer or
+                    by scraping to make good electrical contact between the grounding strap's ring
+                    terminal and your robot's frame.</p>
+
+                    <img src="assets/images/iMurdockUnit/Grounding%20Strap%20Fasteners.webp"
+                    style="height: 3lh; width: auto;" alt="A 3D rendering of a grounding strap's
+                    ring terminal fastened to aluminum extrusion, with a toothed lock washer in
+                    between that has scratched through the extrusion's anodized coating.">
+                </li>
+                <li><p>Cover exposed metal along the outside of your robot with an electrically
+                insulating material where it could touch the truss or other robots. Metal-to-metal
+                contact would allow electric charge to rush in or out of your robot's frame to
+                balance with the other object.</p></li>
+
+                <li><p>Also cover any visible metal on wiring connectors and empty sockets with
+                electrically insulating material like electrical tape. When the voltage between your
+                robot's frame and its wiring grows too high, electricity can jump <em>through the
+                air</em> one centimeter or more as a visible spark; This is the discharge of
+                electricity that ESD refers to.</p></li>
+
+                <li><p>Update to REV's early-access Control Hub OS version 1.1.4 or newer, which
+                claims to reduce the chance of IMU resets.
+                <a href="https://firsttechchallenge.blogspot.com/2024/02/first-tech-challenge-sdk-and-rev.html"
+                >This FIRST Tech Challenge Blog post from 2024-02-24</a> explains how to install the
+                early-access version.</p></li>
+            </ul>
+
+            <hr>
+            <h2 id="background-our-solution">Our Solution</h2>
+            <p>Once your team has applied the previous suggestions for mitigating static, your new
+            control hub's IMU may <em>still</em> reset when shocked. Fortunately, external IMU
+            sensor boards using the same chip as original control hubs can still be purchased!
+            <a href="#hardware">Read on</a> for a simple guide to buying, assembling, attaching, and
+            configuring a replacement IMU in a 3D-printed enclosure designed by team 10809 Crow
+            Force and the mentors of Sage Creek High School.</p>
+
+            <div class="PreviewRenders">
+                <a href="assets/images/iMurdockUnit/Render.webp"><img
+                src="assets/images/iMurdockUnit/Render.webp" alt="A 3D render of the iMurdockUnit
+                pressed over the center hump of a control hub with connectors facing upwards. A
+                rectangular red cap labeled “IMU” is bolted onto the iMurdockUnit."></a>
+
+                <a href="assets/images/iMurdockUnit/Underside%20Logos.png"><img
+                src="assets/images/iMurdockUnit/Underside%20Logos.png" alt="A 3D render of the
+                bottom of an iMurdockUnit revealing several labels and logos: FTC Team 10809 Crow
+                Force, SCHS, and Carlsbad Educational Foundation."></a>
+            </div>
+
+            <h3 id="background-our-solution-design-goals">Design Goals</h3>
+            <ul>
+                <li><p>The external IMU's position and rotation are aligned with a hub's internal
+                IMU except raised towards the iMurdockUnit by 27.2mm. Gyroscope readings will match
+                the internal IMU without code changes, and accelerometer readings will only vary
+                slightly while rotating.</p></li>
+
+                <li><p>The I2C sensor cable is strain-reliefed to prevent tugging on its soldered
+                connections to the external IMU.</p></li>
+            </ul>
+
+            <aside>
+                <p>This project was named after Murdock, Crow Force's crow mascot. Did you know that
+                <a href="https://www.ox.ac.uk/news/science-blog/how-birds-sense-magnetic-field-earth-help-them-navigate"
+                >some migratory birds may be able to sense electromagnetic fields</a> to help them
+                navigate, like the magnetometer compass in an IMU? Check out
+                <a href="https://crowforce10809.wixsite.com/ftc-robotics/murdock-moments"
+                target="_blank">where Murdock has navigated to</a>.</p>
+            </aside>
+        </div>
+
+        <div class="block">
+            <h1 id="hardware">Hardware</h1>
+
+            <h2 id="hardware-required-tools">Required Tools</h2>
+            <p>To assemble an iMurdockUnit, you will use the following tools:</p>
+            <ul>
+                <li>3D Printer</li>
+                <li>Soldering Iron</li>
+                <li>Wire Cutters</li>
+                <li>Wire Strippers</li>
+            </ul>
+
+            <h2 id="hardware-required-materials">Required Materials</h2>
+            <p>One iMurdockUnit is made from the following components:</p>
+            <ul>
+                <li><a href="https://www.adafruit.com/product/2472">Adafruit 2472: BNO055 IMU
+                    Breakout Board</a>
+
+                    <p>This sensor board features the same Bosch BNO055 IMU chip that previous
+                    generation control hubs included.</p>
+
+                    <img src="assets/images/iMurdockUnit/Adafruit%202472.webp"
+                    style="height: 3lh; width: auto;" alt="A blue Adafruit 2472 circuit board
+                    labeled BNO055, 9-Axis Absolute Orientation.">
+                </li>
+                <li>Semi-Rigid 3D Printer Filament (such as PLA)
+
+                    <p>The printed part press-fits onto the top of a control or expansion hub, so
+                    more flexible plastics will conform and hold on better.</p>
+                </li>
+                <li><a href="https://www.revrobotics.com/JST-PH-4-pin-Sensor-Cables/">REV Robotics
+                    REV-31-1407-PK4</a> or Equivalent, ≥10cm
+
+                    <p>Only half of this sensor cable requires a JST PH4 connector to fit into the
+                    control or expansion hub's I2C ports; The other end will directly solder to the
+                    IMU breakout board. To simplify wiring with these instructions, find a cable
+                    that matches REV's sensor wire colors: blue (pin 1), white, red, black.</p>
+
+                    <img src="assets/images/iMurdockUnit/JST%20PH4%20Rev%20Wiring.webp"
+                    style="height: 3lh; width: auto;" alt="The JST PH4 connector at the end of a REV
+                    Robotics REV-31-1407-PK4 sensor cable. With its contacts facing down and cable
+                    going upwards, viewed from the side with four small holes exposing the pins'
+                    locking tabs, the cable's wires from left to right are colored blue, white, red,
+                    black.">
+                </li>
+                <li>Lead-Free Solder</li>
+                <li>4× Button-Cap M4 Screws, ≥8mm</li>
+                <li>4× M4 Nyloc Nuts</li>
+                <li>Super Glue (Cyanoacrylate)</li>
+            </ul>
+
+            <hr>
+            <h2 id="hardware-assembly-instructions">Assembly Instructions</h2>
+            <p>Warning: Safety first. Wear safety glasses when cutting wire or while soldering, and
+            be careful with the cutting end of wire cutters and wire strippers.</p>
+            <ol>
+                <li><p>Begin 3D printing the base and cap pieces:
+                <a href="assets/downloads/iMurdockUnit.step.zip" download>STEP file</a>,
+                <a href="assets/downloads/iMurdockUnit.stl.zip" download>STL file</a>.</p></li>
+
+                <li><p>Use wire cutters to cut the sensor cable, leaving about 10cm of cable
+                connected to the JST PH4 connector that plugs into control or expansion hubs.
+                Discard the rest of the cable.</p></li>
+
+                <li><p>At the cut end of the remaining sensor cable, pull the cable's individual
+                wires apart by about 2cm so that end appears frayed.</p></li>
+
+                <li><p>Use wire strippers to expose about 4mm of copper from wires at the sensor
+                cable's frayed end.</p></li>
+
+                <li><p>In a well ventilated area, use a soldering iron and lead-free solder to
+                    connect the following stripped sensor cable wires to the Adafruit 2472 IMU
+                    breakout board:</p>
+
+                    <p><em>Note: Don't match the photo; it is only for reference matching wire
+                    colors to breakout board pads. In the iMurdockUnit, these wires must come out
+                    the top of the breakout board.</em></p>
+
+                    <ul style="float: left; margin-right: 1lh;">
+                        <li>Red: <code>Vin</code></li>
+                        <li>Black: <code>GND</code></li>
+                        <li>White: <code>SDA</code></li>
+                        <li>Blue: <code>SCL</code></li>
+                    </ul>
+
+                    <a href="assets/images/iMurdockUnit/Breakout%20Wiring.webp"><img
+                    src="assets/images/iMurdockUnit/Breakout%20Wiring.webp"
+                    style="height: 6lh; width: auto;" alt="Color coded jumper wires plugged into
+                    header pins that have been soldered into an Adafruit 2472 IMU breakout
+                    board."></a>
+
+                    <p>Use this technique for each wire:</p>
+                    <ol style="clear: left;">
+                        <li>
+                            <p>Insert the stripped end of the wire through the top of the board (the
+                            side labeled “BNO055”) until the wire's insulation almost contacts the
+                            board.</p>
+
+                            <p><em>Note: Do not tin the wire first, or else you may bend unseen wire
+                            strands.</em></p>
+                        </li>
+
+                        <li><p>Apply solder where the wire protrudes from the bottom, being careful
+                        not to connect with neighboring pads.</p></li>
+
+                        <li><p>Trim excess wire from the solder blob.</p></li>
+                    </ol>
+                </li>
+
+                <li><p>Wait for both 3D printed parts from step 1 to complete, and remove any
+                scaffolding.</p></li>
+
+                <li><p>Use super glue to affix four M4 nyloc nuts into the corner slots of the
+                smaller 3D printed cap piece labeled “IMU”. With the lettering facing upwards, the
+                nuts' threaded sides should face downwards. Be careful not to get super glue inside
+                the threads.</p></li>
+
+                <li>
+                    <p>Set the IMU breakout board onto the four tapered alignment pins within the
+                    larger 3D printed base's cutout. Centered within those pins is an engraving of a
+                    small rectangle with a dot in one corner; Locate the breakout board's black IMU
+                    chip with white dot, and match their orientations. Labels on the breakout board
+                    should be upside down compared to those on the 3D printed part.</p>
+
+                    <a href="assets/images/iMurdockUnit/Without%20Cap.webp"><img
+                    src="assets/images/iMurdockUnit/Without%20Cap.webp" alt="The IMU breakout board
+                    resting on four alignment pins on the top of a 3D printed iMurdockUnit base
+                    piece. Labels engraved into the two pieces are vertically flipped."></a>
+                </li>
+
+                <li>
+                    <p>The sensor cable should extend from the IMU breakout board over a channel in
+                    the larger 3D printed base. Align the cable with this channel and then press the
+                    smaller 3D printed cap on top with text from both 3D printed pieces in the same
+                    orientation. Maintain pressure to constrain the sandwiched IMU and cable while
+                    threading four button-cap M4 screws from the bottom of the base through the
+                    cap; Tighten the screws evenly, and <em>do not over-tighten them</em>. The
+                    following cut-away rendering illustrates how the sensor cable should fold
+                    between channels in the 3D printed parts to create strain relief.</p>
+
+                    <a href="assets/images/iMurdockUnit/Strain%20Relief%20Cutaway.png"><img
+                    src="assets/images/iMurdockUnit/Strain%20Relief%20Cutaway.png" alt="A 3D
+                    rendered cut-away view of how the iMurdockUnit's 3D printed base and cap
+                    sandwich the IMU breakout board and its soldered cable. The cable passes through
+                    a snaking tunnel that acts as strain relief once tightened."></a>
+                </li>
+            </ol>
+
+            <hr>
+            <h2 id="hardware-installation">Installation</h2>
+            <p>The assembled iMurdockUnit rides on a control or expansion hub's orange hump with
+            diagonal white stripe. Rotate the iMurdockUnit so that its sensor cable extends towards
+            the hub's I2C ports. Once aligned, press the iMurdocUnit down firmly onto the hub.
+            Lastly, plug its dangling sensor wire into the hub's I2C port 1, 2, or 3 connector.</p>
+
+            <p><em>Note: Port 0 must not be used because it already connects to the hub's internal
+            IMU. The Java class <code>com.qualcomm.robotcore.hardware.IMU</code> prefers to connect
+            with the internal IMU if it and the iMurdockUnit external IMU are connected to the same
+            I2C port.</em></p>
+
+            <a href="assets/images/iMurdockUnit/Installed.webp"><img
+            src="assets/images/iMurdockUnit/Installed.webp" alt="An assembled iMurdockUnit mounted
+            onto a powered expansion hub and connected to the I2C 1 port."></a>
+        </div>
+
+        <div class="block">
+            <h1 id="software">Software</h1>
+
+            <h2 id="software-driver-station">Driver Station</h2>
+            <p>It is very easy to get your external IMU to talk to your robot controller. Below are
+            instructions on how to configure the external IMU using your connected driver
+            station.</p>
+
+            <hr>
+            <h3 id="software-driver-station-disable-internal-imu">Disable Internal IMU</h3>
+            <p>First, disable the built-in internal IMUs from your control hub using a connected
+            driver station:</p>
+            <ol>
+                <li>
+                    <p>At the driver station's main screen, tap the three-dots button at the top
+                    right and select “Configure Robot”.</p>
+
+                    <img class="DriverHubScreen" src="assets/images/iMurdockUnit/DriverStation1.png"
+                    alt="The Driver Station's “Robot Configuration” screen listing two available
+                    configurations for editing: “2023_2024” and “camera”.">
+                </li>
+                <li>
+                    <p>Tap the “Edit” button of your existing robot configuration.</p>
+
+                    <img class="DriverHubScreen" src="assets/images/iMurdockUnit/DriverStation2.png"
+                    alt="The Driver Station's “Robot Configuration” screen after opening the
+                    “2023_2024” configuration for editing. Two USB devices are listed for this
+                    configuration: “Webcam 1” and “Control Hub Portal”.">
+                </li>
+                <li>
+                    <p>Tap the “Control Hub Portal” within your robot configuration to see its
+                    connected control and expansion hubs.</p>
+
+                    <img class="DriverHubScreen" src="assets/images/iMurdockUnit/DriverStation3.png"
+                    alt="The Driver Station's “Robot Configuration” screen after selecting the USB
+                    device named “Control Hub Portal”. Two contained devices are listed: “Expansion
+                    Hub 2” and “Control Hub”.">
+                </li>
+                <li>
+                    <p>Tap “Control Hub” to view categories of connected peripherals.</p>
+
+                    <img class="DriverHubScreen" src="assets/images/iMurdockUnit/DriverStation4.png"
+                    alt="The Driver Station's “Robot Configuration” screen after selecting the
+                    “Control Hub” entry within “Control Hub Portal”. The first five visible
+                    categories of connected peripherals are “Analog Input Devices”, “I2C Bus 0”,
+                    “I2C Bus 1”, “I2C Bus 2”, and “I2C Bus 3”.">
+                </li>
+                <li>
+                    <p>Tap “I2C Bus 0” to configure sensors connected to the first communications
+                    channel. The control hub's internal IMU is hardwired to this I2C bus.</p>
+                </li>
+                <li>
+                    <p>Look for any entries of “REV Control Hub IMU” and disable them by selecting
+                    “Nothing”.</p>
+
+                    <p><strong>Note:</strong> <em>Do not</em> add your external IMU on this I2C bus,
+                    since the unified <code>IMU</code> interface code for reading measurements will
+                    ignore your configuration and try to talk to the original internal IMU instead.
+                    See <a href="#software-driver-station-add-external-imu">the next section</a> for
+                    adding your external IMU to a different I2C bus.</p>
+
+                    <img class="DriverHubScreen" src="assets/images/iMurdockUnit/DriverStation5.png"
+                    alt="The Driver Station's “Robot Configuration” screen after selecting “I2C Bus
+                    0” within “Control Hub”. In the two-column table of port numbers and associated
+                    attached I2C devices, port zero has been assigned the device type “Nothing”.">
+                </li>
+            </ol>
+
+            <h3 id="software-driver-station-add-external-imu">Add External IMU</h3>
+            <p>Second, add the new external IMU to a control or expansion hub:</p>
+            <ol>
+                <li>
+                    <p>Now go to I2C Bus 1 and add an “Adafruit IMU”.</p>
+
+                    <img class="DriverHubScreen" src="assets/images/iMurdockUnit/DriverStation6.png"
+                    alt="The Driver Station's “Robot Configuration” screen after returning to the
+                    previous “Control Hub” screen and selecting “I2C Bus 1” instead. Port zero has
+                    been assigned the device type “Adafruit IMU”.">
+                </li>
+                <li>
+                    <p>Name your external Adafruit IMU sensor to match how your code gets a
+                    reference to it (such as using <code class="language-java">hardwareMap.get</code>
+                    in Java). In the <a href="#software-sample-code">next section's code sample</a>,
+                    we will use the name “<kbd>imu</kbd>”.</p>
+
+                    <img class="DriverHubScreen" src="assets/images/iMurdockUnit/DriverStation7.png"
+                    alt="The Driver Station's “Robot Configuration” screen after renaming the
+                    “Adafruit IMU” device on port zero of “I2C Bus 1” to “imu”.">
+                </li>
+            </ol>
+
+            <hr>
+            <h2 id="software-sample-code">Sample Code</h2>
+            <p>The code below shows how to setup your new IMU. Make the name of your imu matches the
+            name in IC Bus 2 slot on your drive hub. Another thing to note is the Orientation we
+            have given about our IMU. This changes depending on how you have your external IMU
+            positioned.</p>
+
+            <pre><code class="language-java">package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+
+
+@TeleOp(name = "External IMU Test", group = "Teleop")
+public class ExternalIMU extends LinearOpMode {
+    public IMU imu;
+
+    public void runOpMode() throws InterruptedException {
+        //Set up external IMU from I2C bus 1
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters imuParameters;
+
+        //Parameters for IMU
+        imuParameters = new IMU.Parameters(
+            new RevHubOrientationOnRobot(
+                //The iMurdockUnit holds its external IMU in the same orientation
+                //as an internal IMU, so you can copy your original values here.
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
+            )
+        );
+
+        imu.initialize(imuParameters);
+
+        //Reset left-to-right rotation
+        imu.resetYaw();
+
+        waitForStart();
+        while (opModeIsActive()) {
+            telemetry.addData("🧭 IMU Rotation (degrees)", getAngle());
+            telemetry.update();
+        }
+    }
+
+    public double getAngle() {
+        return imu.getRobotOrientation(AxesReference.EXTRINSIC, AxesOrder.ZYX,
+            AngleUnit.DEGREES).firstAngle;
+    }
+}
+</code></pre>
+        </div>
+
+
+        <div class="footer">
+            <a href="https://github.com/CrowForce" target="_blank">Github</a> |
+            <a href="https://crowforce10809.wixsite.com/ftc-robotics" target="_blank">Buisness Website</a>
+        </div>
+    </div>
+</html>
